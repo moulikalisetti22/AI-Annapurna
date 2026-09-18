@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}FoodBridge | {{ mode|title }}{% endblock %}
+{% block content %}
+<section class="section auth-section">
+  <div class="container auth-wrap">
+    <div class="auth-illustration">
+      <div class="illustration-box">
+        <div class="food-illustration large"></div>
+      </div>
+    </div>
+    <div class="auth-card">
+      <span class="eyebrow">{{ 'Welcome back' if mode == 'login' else 'Create account' }}</span>
+      <h1>{{ 'Login to FoodBridge' if mode == 'login' else 'Register as a donor, NGO, or volunteer' }}</h1>
+      <form method="POST">
+        {% if mode == 'register' %}
+        <div class="field">
+          <label>Full Name</label>
+          <input type="text" name="full_name" required />
+        </div>
+        {% endif %}
+        <div class="field">
+          <label>Email</label>
+          <input type="email" name="email" required />
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" name="password" required />
+        </div>
+        {% if mode == 'register' %}
+        <div class="field">
+          <label>User Type</label>
+          <select name="role" required>
+            <option value="donor">Donor</option>
+            <option value="ngo">NGO</option>
+            <option value="volunteer">Volunteer</option>
+            <option value="admin">Administrator</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Phone</label>
+          <input type="text" name="phone" />
+        </div>
+        <div class="field">
+          <label>Village / Area</label>
+          <input type="text" name="village" />
+        </div>
+        {% endif %}
+        <button class="button block-button" type="submit">{{ 'Login' if mode == 'login' else 'Register' }}</button>
+      </form>
+      <p class="auth-link">
+        {% if mode == 'login' %}
+        New here? <a href="{{ url_for('register') }}">Create an account</a>
+        {% else %}
+        Already registered? <a href="{{ url_for('login') }}">Login here</a>
+        {% endif %}
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block title %}FoodBridge | Donate Food{% endblock %}
+{% block content %}
+<section class="page-banner">
+  <div class="container narrow">
+    <span class="eyebrow">Donate Food</span>
+    <h1>Share safe surplus food with nearby communities.</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container form-layout">
+    <form class="card-form" method="POST" enctype="multipart/form-data">
+      <div class="form-grid">
+        <div class="field">
+          <label>Donor Name</label>
+          <input type="text" name="donor_name" placeholder="Enter donor name" />
+        </div>
+        <div class="field">
+          <label>Food Name</label>
+          <input type="text" name="food_name" required placeholder="e.g. Rice and Curry" />
+        </div>
+        <div class="field">
+          <label>Quantity</label>
+          <input type="text" name="quantity" required placeholder="e.g. 25 servings" />
+        </div>
+        <div class="field">
+          <label>Food Type</label>
+          <select name="food_type" required>
+            <option value="">Select type</option>
+            <option>Cooked Meal</option>
+            <option>Bakery</option>
+            <option>Fruit</option>
+            <option>Vegetables</option>
+            <option>Snacks</option>
+            <option>Grains</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label>Location</label>
+          <input type="text" name="location" required placeholder="Village or market name" />
+        </div>
+        <div class="field">
+          <label>Pickup Time</label>
+          <input type="text" name="pickup_time" required placeholder="Today 6:30 PM" />
+        </div>
+        <div class="field">
+          <label>Expiry / Safety Check</label>
+          <input type="datetime-local" name="expiry_time" required />
+        </div>
+        <div class="field">
+          <label>Latitude</label>
+          <input type="number" step="any" name="latitude" value="16.5" />
+        </div>
+        <div class="field">
+          <label>Longitude</label>
+          <input type="number" step="any" name="longitude" value="80.5" />
+        </div>
+        <div class="field full">
+          <label>Safety Notes</label>
+          <textarea name="safety_note" rows="3" placeholder="Mention food preparation, storage, and hygiene conditions."></textarea>
+        </div>
+        <div class="field full">
+          <label>Upload Image</label>
+          <input type="file" name="food_image" accept="image/*" />
+        </div>
+      </div>
+      <div class="action-row">
+        <button class="button" type="submit">Submit Donation</button>
+        <span class="helper-text">Demo data is clearly marked and safety checks prevent unsafe distribution.</span>
+      </div>
+    </form>
+
+    <aside class="info-panel">
+      <h3>Safety Guidelines</h3>
+      <ul>
+        <li>Do not donate food past its safe expiry time.</li>
+        <li>Keep food covered and hygienic during transit.</li>
+        <li>Record any ingredients that may affect allergies.</li>
+        <li>Only share food that is suitable for immediate consumption.</li>
+      </ul>
+      <div class="mini-map" id="donation-map"></div>
+    </aside>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const map = L.map('donation-map').setView([16.5062, 80.6480], 10);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+  L.marker([16.5062, 80.6480]).addTo(map).bindPopup('Donation Location');
+</script>
+{% endblock %}

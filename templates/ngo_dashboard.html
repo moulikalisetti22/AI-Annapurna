@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}FoodBridge | NGO Dashboard{% endblock %}
+{% block content %}
+<section class="page-banner">
+  <div class="container narrow">
+    <span class="eyebrow">NGO Dashboard</span>
+    <h1>Review requests and coordinate food distribution.</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cards-grid">
+      {% for request in requests %}
+      <article class="info-card">
+        <div class="card-top-row">
+          <span class="badge">{{ request['status'] }}</span>
+          <span class="badge subtle">{{ request['request_type'] }}</span>
+        </div>
+        <h3>{{ request['food_name'] }}</h3>
+        <p>{{ request['location'] }}</p>
+        <ul>
+          <li>Request Status: {{ request['status'] }}</li>
+          <li>Donation Status: {{ request['donation_status'] }}</li>
+          <li>Created: {{ request['created_at'] }}</li>
+        </ul>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

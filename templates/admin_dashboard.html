@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}FoodBridge | Admin Dashboard{% endblock %}
+{% block content %}
+<section class="page-banner">
+  <div class="container narrow">
+    <span class="eyebrow">Admin Dashboard</span>
+    <h1>Monitor distribution, users, and food impact.</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container stats-grid">
+    <div class="stat-card">
+      <span>Total Users</span>
+      <strong>{{ user_count }}</strong>
+    </div>
+    <div class="stat-card">
+      <span>Donations</span>
+      <strong>{{ donation_count }}</strong>
+    </div>
+    <div class="stat-card">
+      <span>Requests</span>
+      <strong>{{ request_count }}</strong>
+    </div>
+    <div class="stat-card">
+      <span>Volunteers</span>
+      <strong>{{ volunteer_count }}</strong>
+    </div>
+  </div>
+</section>
+
+<section class="section alt-bg">
+  <div class="container">
+    <div class="section-heading">
+      <span class="eyebrow dark">Recent activity</span>
+      <h2>Latest donations and system notifications</h2>
+    </div>
+    <div class="two-column admin-grid">
+      <div>
+        <h3>Recent Donations</h3>
+        <ul class="activity-list">
+          {% for donation in recent_donations %}
+          <li>
+            <strong>{{ donation['food_name'] }}</strong>
+            <span>{{ donation['donor_name'] }} • {{ donation['location'] }} • {{ donation['status'] }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div>
+        <h3>Notifications</h3>
+        <ul class="activity-list">
+          {% for item in notifications %}
+          <li>
+            <strong>{{ item['type'] }}</strong>
+            <span>{{ item['message'] }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

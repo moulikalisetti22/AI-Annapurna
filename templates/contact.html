@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}FoodBridge | Contact{% endblock %}
+{% block content %}
+<section class="page-banner">
+  <div class="container narrow">
+    <span class="eyebrow">Contact Us</span>
+    <h1>Let’s work together to reduce waste and hunger.</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container contact-layout">
+    <div class="contact-card">
+      <h3>Get in touch</h3>
+      <ul>
+        <li>Email: help@foodbridge.in</li>
+        <li>Phone: +91 98765 43210</li>
+        <li>Address: 14 Green Lane, Vijayawada, Andhra Pradesh</li>
+      </ul>
+    </div>
+    <form class="card-form">
+      <div class="field">
+        <label>Your Name</label>
+        <input type="text" placeholder="Full name" />
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" placeholder="Email address" />
+      </div>
+      <div class="field">
+        <label>Message</label>
+        <textarea rows="4" placeholder="How can we help?"></textarea>
+      </div>
+      <button class="button" type="submit">Send Message</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

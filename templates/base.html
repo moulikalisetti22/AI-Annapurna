@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}FoodBridge{% endblock %}</title>
+    <meta name="description" content="FoodBridge – Smart Food Donation & Distribution System" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <div class="brand">
+          <div class="brand-mark">F</div>
+          <div>
+            <span class="brand-name">FoodBridge</span>
+            <small>Smart Rural Food Network</small>
+          </div>
+        </div>
+        <nav class="main-nav">
+          <a href="{{ url_for('index') }}">Home</a>
+          <a href="{{ url_for('about') }}">About Us</a>
+          <a href="{{ url_for('donate') }}">Donate Food</a>
+          <a href="{{ url_for('find_food') }}">Find Food</a>
+          <a href="{{ url_for('volunteer') }}">Volunteer</a>
+          <a href="{{ url_for('ngo_dashboard') }}">NGO Dashboard</a>
+          <a href="{{ url_for('admin_dashboard') }}">Admin</a>
+          <a href="{{ url_for('contact') }}">Contact</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="button button-ghost button-small" data-voice="Welcome to FoodBridge. Use the menu to donate food or find nearby support." type="button">🔊 English</button>
+          <button class="button button-ghost button-small" data-voice="ఫుడ్‌బ్రిడ్జ్‌కు స్వాగతం. ఆహారం ఇవ్వడానికి, మరియు సహాయం కనుగొనేందుకు మెనూను ఉపయోగించండి." type="button">🔊 తెలుగు</button>
+          {% if user %}
+            <a class="button button-ghost" href="{{ url_for('dashboard') }}">{{ user['full_name'] }}</a>
+            <a class="button" href="{{ url_for('logout') }}">Logout</a>
+          {% else %}
+            <a class="button button-ghost" href="{{ url_for('login') }}">Login</a>
+            <a class="button" href="{{ url_for('register') }}">Register</a>
+          {% endif %}
+        </div>
+      </div>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-wrap">
+          {% for category, message in messages %}
+            <div class="flash flash-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <h4>FoodBridge</h4>
+          <p>Reducing food waste and hunger with technology-driven community action across rural India.</p>
+        </div>
+        <div>
+          <h5>Quick Links</h5>
+          <ul>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+            <li><a href="{{ url_for('donate') }}">Donate</a></li>
+            <li><a href="{{ url_for('find_food') }}">Find Food</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Contact</h5>
+          <ul>
+            <li>+91 98765 43210</li>
+            <li>help@foodbridge.in</li>
+            <li>Vijayawada, Andhra Pradesh</li>
+          </ul>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <span>© 2026 FoodBridge. Built for a stronger rural community.</span>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

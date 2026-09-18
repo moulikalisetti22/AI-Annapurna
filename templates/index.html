@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block title %}FoodBridge | Home{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Smart Food Donation & Distribution System</span>
+      <h1>Connecting surplus food with families who need it most.</h1>
+      <p>FoodBridge helps hotels, restaurants, function halls, and households share safe food with NGOs, volunteers, and rural communities—cutting waste while feeding the hungry.</p>
+      <div class="hero-actions">
+        <a class="button" href="{{ url_for('donate') }}">Donate Food</a>
+        <a class="button button-ghost" href="{{ url_for('find_food') }}">Find Food</a>
+      </div>
+      <div class="mini-stats">
+        <div><strong>{{ stats['donations'] }}</strong><span>Donations</span></div>
+        <div><strong>{{ stats['volunteers'] }}</strong><span>Volunteers</span></div>
+        <div><strong>{{ stats['ngos'] }}</strong><span>NGOs</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card main-card">
+        <div class="food-badge">Fresh & Safe</div>
+        <div class="card-image food-illustration"></div>
+        <div class="card-meta">
+          <span>Today’s Pickup</span>
+          <strong>18 plates • Konduru Market</strong>
+        </div>
+      </div>
+      <div class="floating-card card-top">12 km route optimized</div>
+      <div class="floating-card card-bottom">Voice support: Telugu + English</div>
+    </div>
+  </div>
+</section>
+
+<section class="feature-strip">
+  <div class="container feature-grid">
+    <div class="feature-box">
+      <span class="icon">🥘</span>
+      <h3>Food Donation</h3>
+      <p>Simple donation workflow for surplus meals, grains, and bakery items.</p>
+    </div>
+    <div class="feature-box">
+      <span class="icon">📍</span>
+      <h3>Location Matching</h3>
+      <p>Map-based coordination between donors, NGOs, and volunteers in nearby areas.</p>
+    </div>
+    <div class="feature-box">
+      <span class="icon">🤝</span>
+      <h3>Volunteer Network</h3>
+      <p>Assign pickup and last-mile delivery tasks to trusted local volunteers.</p>
+    </div>
+    <div class="feature-box">
+      <span class="icon">🔊</span>
+      <h3>Voice Assistance</h3>
+      <p>Support for Telugu and English voice guidance for inclusive access.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-heading">
+      <span class="eyebrow dark">How it works</span>
+      <h2>From surplus to support in four easy steps</h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <span>01</span>
+        <h3>Register</h3>
+        <p>Create a donor, NGO, volunteer, or admin account with secure login.</p>
+      </div>
+      <div class="step-card">
+        <span>02</span>
+        <h3>Donate</h3>
+        <p>Submit food details, safety notes, pickup timing, and location.</p>
+      </div>
+      <div class="step-card">
+        <span>03</span>
+        <h3>Match</h3>
+        <p>FoodBridge identifies nearby NGOs and volunteers for collection.</p>
+      </div>
+      <div class="step-card">
+        <span>04</span>
+        <h3>Deliver</h3>
+        <p>Track the status from Available to Accepted, Picked Up, and Delivered.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt-bg">
+  <div class="container">
+    <div class="section-heading">
+      <span class="eyebrow dark">Latest donations</span>
+      <h2>Recent food listings</h2>
+    </div>
+    <div class="cards-grid">
+      {% for donation in latest %}
+      <article class="info-card">
+        <div class="card-top-row">
+          <span class="badge">{{ donation['status'] }}</span>
+          <span class="badge subtle">{{ donation['food_type'] }}</span>
+        </div>
+        <h3>{{ donation['food_name'] }}</h3>
+        <p>{{ donation['quantity'] }} • {{ donation['location'] }}</p>
+        <ul>
+          <li>Donor: {{ donation['donor_name'] }}</li>
+          <li>Pickup: {{ donation['pickup_time'] }}</li>
+          <li>Expiry: {{ donation['expiry_time'] }}</li>
+        </ul>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
